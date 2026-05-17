@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>충동구매 MBTI · IMPULSE TYPE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Black+Han+Sans&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#F4EEE3;
+    --ivory-2:#EDE5D5;
+    --paper:#FAF6EC;
+    --ink:#1A1714;
+    --ink-2:#3A332B;
+    --muted:#7E7468;
+    --line:#D6CCB8;
+    --line-2:#C2B49B;
+    --accent:#E63B1F;       /* 시그널 레드 */
+    --accent-2:#B82A12;
+    --gold:#A8843C;
+    --olive:#5C6233;
+    --sage:#9CA67D;
+    --shadow: 0 24px 60px -20px rgba(26,23,20,.25);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{
+    background: var(--ivory);
+    color: var(--ink);
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x:hidden;
+  }
+  body{
+    min-height:100vh;
+    background:
+      radial-gradient(1200px 800px at 80% -10%, rgba(230,59,31,.06), transparent 60%),
+      radial-gradient(900px 600px at -10% 110%, rgba(168,132,60,.08), transparent 60%),
+      var(--ivory);
+    position:relative;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:1;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .1  0 0 0 0 .09  0 0 0 0 .08  0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/></svg>");
+    mix-blend-mode: multiply; opacity:.45;
+  }
+
+  /* ====== 공통 레이아웃 ====== */
+  .stage{
+    position:relative; z-index:2;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 40px 28px 80px;
+  }
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 14px; margin-bottom: 36px;
+    font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+    color: var(--ink-2);
+  }
+  .topbar .brand{ font-family:'Instrument Serif', serif; font-style:italic; font-size:18px; letter-spacing:0; text-transform:none; }
+  .topbar .meta{ display:flex; gap:18px; }
+  .topbar .meta span{ display:inline-flex; align-items:center; gap:6px; }
+  .topbar .dot{ width:6px; height:6px; background:var(--accent); border-radius:50%; display:inline-block; }
+
+  /* ====== INTRO ====== */
+  .intro{ position:relative; padding-top:10px; }
+  .intro .eyebrow{
+    font-family:'Instrument Serif', serif; font-style:italic;
+    font-size:20px; color:var(--accent); margin-bottom:18px;
+  }
+  .intro h1{
+    font-family:'Gowun Batang', serif;
+    font-weight:700;
+    font-size: clamp(46px, 8.5vw, 104px);
+    line-height: .95;
+    letter-spacing:-0.02em;
+    margin-bottom: 18px;
+  }
+  .intro h1 .ko{ display:block; }
+  .intro h1 .en{
+    display:block;
+    font-family:'Instrument Serif', serif;
+    font-style:italic; font-weight:400;
+    color: var(--accent);
+    font-size: .42em;
+    margin-top: 8px;
+    letter-spacing:0;
+  }
+  .intro .lede{
+    max-width: 620px;
+    font-size: 17px; line-height:1.65;
+    color: var(--ink-2);
+    margin: 28px 0 36px;
+  }
+  .meta-grid{
+    display:grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin: 30px 0 36px;
+  }
+  .meta-grid .cell{
+    padding: 18px 16px;
+    border-right: 1px dashed var(--line);
+  }
+  .meta-grid .cell:last-child{ border-right:none; }
+  .meta-grid .k{
+    font-size:11px; letter-spacing:.16em; color:var(--muted);
+    text-transform:uppercase; margin-bottom:8px;
+  }
+  .meta-grid .v{
+    font-family:'Gowun Batang', serif; font-weight:700;
+    font-size: 22px;
+  }
+  .meta-grid .v small{ font-size:13px; font-weight:400; color:var(--muted); margin-left:4px; }
+
+  .cta{
+    display:inline-flex; align-items:center; gap:14px;
+    background: var(--ink); color: var(--paper);
+    padding: 18px 28px 18px 32px;
+    border:none; cursor:pointer;
+    font-family:'Pretendard Variable', sans-serif;
+    font-size: 16px; font-weight:600; letter-spacing:.02em;
+    border-radius: 999px;
+    transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+    box-shadow: 0 14px 30px -16px rgba(26,23,20,.5);
+  }
+  .cta:hover{ transform: translateY(-2px); background:var(--accent); }
+  .cta .arrow{
+    width: 28px; height: 28px; border-radius:50%;
+    background: var(--accent); color: var(--paper);
+    display:inline-flex; align-items:center; justify-content:center;
+    transition: background .25s ease;
+    font-size: 14px;
+  }
+  .cta:hover .arrow{ background: var(--ink); }
+
+  .feature-strip{
+    margin-top: 56px;
+    display:grid; grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .feature{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 22px 22px 24px;
+    position:relative;
+  }
+  .feature .num{
+    font-family:'Instrument Serif', serif; font-style:italic;
+    font-size: 32px; color: var(--accent);
+    line-height:1; margin-bottom: 10px;
+  }
+  .feature h3{
+    font-family:'Gowun Batang', serif; font-weight:700;
+    font-size: 18px; margin-bottom: 6px;
+  }
+  .feature p{ font-size: 13.5px; color: var(--ink-2); line-height:1.6; }
+
+  .types-preview{
+    margin-top: 56px;
+    border-top: 1px solid var(--line);
+    padding-top: 28px;
+  }
+  .types-preview h4{
+    font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:18px;
+  }
+  .types-row{
+    display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  }
+  .type-chip{
+    background: var(--ivory-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 12px;
+    text-align:center;
+    transition: transform .2s ease, background .2s ease;
+  }
+  .type-chip:hover{ transform: translateY(-2px); background: var(--paper); }
+  .type-chip .code{
+    font-family:'Black Han Sans', sans-serif;
+    font-size: 22px; letter-spacing:.05em;
+    color:var(--ink);
+  }
+  .type-chip .name{
+    font-size: 11.5px; color: var(--muted); margin-top: 2px;
+  }
+
+  /* ====== 진단 (QUIZ) ====== */
+  .quiz{ display:none; padding-top: 10px; }
+  .quiz.active{ display:block; }
+  .progress-wrap{
+    display:flex; align-items:center; gap:14px;
+    margin-bottom: 40px;
+  }
+  .progress-track{
+    flex: 1; height: 4px; background: var(--line);
+    border-radius: 999px; overflow:hidden; position:relative;
+  }
+  .progress-fill{
+    height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    width: 0%; transition: width .35s cubic-bezier(.6,.2,.2,1);
+    border-radius: 999px;
+  }
+  .progress-label{
+    font-family:'Instrument Serif', serif; font-style: italic;
+    font-size: 16px; color: var(--ink-2);
+    min-width: 70px; text-align:right;
+  }
+  .progress-label b{
+    font-family:'Black Han Sans', sans-serif;
+    color: var(--accent); font-style:normal;
+    font-size: 22px; margin-right: 2px;
+  }
+
+  .qcard{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 44px 36px 36px;
+    box-shadow: var(--shadow);
+    position:relative;
+    min-height: 460px;
+    display:flex; flex-direction:column;
+  }
+  .qcard .qnum{
+    position:absolute; top:24px; right:32px;
+    font-family:'Instrument Serif', serif; font-style:italic;
+    color: var(--muted); font-size: 16px;
+  }
+  .qcard .tag{
+    display:inline-flex; align-items:center; gap:8px;
+    background: var(--ivory-2); border:1px solid var(--line);
+    padding: 6px 12px; border-radius:999px;
+    font-size: 11px; letter-spacing:.14em; text-transform:uppercase;
+    color: var(--ink-2);
+    align-self:flex-start;
+    margin-bottom: 24px;
+  }
+  .qcard .tag .pill{
+    width:8px; height:8px; border-radius:50%; background: var(--accent);
+  }
+  .qcard h2{
+    font-family:'Gowun Batang', serif; font-weight:700;
+    font-size: clamp(22px, 3.4vw, 30px);
+    line-height: 1.45; letter-spacing:-0.01em;
+    color: var(--ink);
+    margin-bottom: 36px;
+    max-width: 720px;
+  }
+  .choices{
+    display:flex; flex-direction:column; gap: 10px;
+    margin-top:auto;
+  }
+  .choice{
+    display:flex; align-items:center; gap: 16px;
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all .18s ease;
+    text-align:left; width:100%;
+    font-family:'Pretendard Variable', sans-serif;
+    color: var(--ink);
+    font-size: 15.5px;
+  }
+  .choice:hover{
+    background: var(--paper);
+    border-color: var(--ink);
+    transform: translateX(4px);
+  }
+  .choice .num{
+    width: 32px; height: 32px; border-radius:50%;
+    border: 1px solid var(--line-2);
+    display:inline-flex; align-items:center; justify-content:center;
+    font-family:'Instrument Serif', serif; font-style: italic;
+    color: var(--ink-2); font-size: 15px;
+    flex-shrink:0;
+    transition: all .18s ease;
+  }
+  .choice:hover .num{
+    background: var(--accent); color: var(--paper);
+    border-color: var(--accent);
+  }
+  .choice.selected{
+    background: var(--ink); color: var(--paper); border-color: var(--ink);
+  }
+  .choice.selected .num{ background: var(--accent); color: var(--paper); border-color: var(--accent); }
+
+  .qnav{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top: 24px;
+  }
+  .btn-back{
+    background: none; border: 1px solid var(--line);
+    padding: 12px 22px; border-radius: 999px;
+    cursor:pointer; font-family:'Pretendard Variable', sans-serif;
+    font-size: 14px; color: var(--ink-2);
+    transition: all .2s ease;
+  }
+  .btn-back:hover:not(:disabled){
+    background: var(--ink); color: var(--paper); border-color: var(--ink);
+  }
+  .btn-back:disabled{ opacity:.35; cursor:not-allowed; }
+  .timer{
+    font-family:'Instrument Serif', serif; font-style:italic;
+    font-size: 15px; color: var(--muted);
+    display:flex; align-items:center; gap:8px;
+  }
+  .timer .pulse{
+    width:8px; height:8px; border-radius:50%;
+    background: var(--accent);
+    animation: pulse 1.6s infinite ease-in-out;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:.35; transform:scale(.85); }
+    50%{ opacity:1; transform:scale(1); }
+  }
+
+  /* ====== RESULT ====== */
+  .result{ display:none; }
+  .result.active{ display:block; }
+
+  .result-head{
+    display:grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 48px; margin-bottom: 40px;
+  }
+  .result-head .badge{
+    display:inline-flex; gap:8px; align-items:center;
+    background: var(--accent); color: var(--paper);
+    padding: 6px 14px; border-radius:999px;
+    font-size: 11px; letter-spacing:.18em; text-transform:uppercase;
+    margin-bottom: 18px;
+  }
+  .type-code{
+    font-family:'Black Han Sans', sans-serif;
+    font-size: clamp(72px, 14vw, 160px);
+    line-height: .9; letter-spacing:-.02em;
+    color: var(--ink);
+    margin: 8px 0 14px;
+  }
+  .type-code .accent{ color: var(--accent); }
+  .type-name{
+    font-family:'Gowun Batang', serif; font-weight:700;
+    font-size: clamp(26px, 4vw, 36px);
+    line-height:1.2; margin-bottom: 14px;
+  }
+  .type-emoji{
+    font-size: 44px; margin-bottom: 10px; display:block;
+  }
+  .type-tag{
+    display:inline-block;
+    border:1px solid var(--ink); color: var(--ink);
+    padding: 6px 14px; border-radius: 999px;
+    font-size: 12px; letter-spacing:.1em;
+  }
+
+  /* score ring */
+  .score-block{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 28px;
+    text-align:center;
+  }
+  .ring-wrap{
+    position:relative; display:inline-block;
+    margin-bottom: 8px;
+  }
+  .ring{
+    width: 220px; height: 220px;
+    transform: rotate(-90deg);
+  }
+  .ring .bg{ fill:none; stroke: var(--line); stroke-width: 14; }
+  .ring .fg{
+    fill:none; stroke: var(--accent); stroke-width: 14;
+    stroke-linecap: round;
+    stroke-dasharray: 565.48; /* 2πr where r=90 */
+    stroke-dashoffset: 565.48;
+    transition: stroke-dashoffset 1.6s cubic-bezier(.2,.7,.2,1);
+  }
+  .score-num{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+  .score-num .n{
+    font-family:'Black Han Sans', sans-serif;
+    font-size: 76px; line-height:1;
+    color: var(--ink);
+  }
+  .score-num .of{
+    font-family:'Instrument Serif', serif; font-style: italic;
+    color: var(--muted); font-size: 14px; margin-top: 4px;
+  }
+  .score-label{
+    font-size: 12px; letter-spacing:.18em; text-transform:uppercase;
+    color: var(--muted); margin-bottom: 8px; display:block;
+  }
+  .score-level{
+    font-family:'Gowun Batang', serif; font-weight:700;
+    font-size: 20px; margin-top: 14px;
+  }
+  .score-level .badge-lv{
+    display:inline-block; padding:4px 10px; border-radius:999px;
+    background: var(--ink); color: var(--paper);
+    font-family:'Pretendard Variable', sans-serif;
+    font-size: 12px; font-weight:600;
+    margin-left: 6px;
+  }
+
+  /* dimension bars */
+  .dim-section{
+    margin-bottom: 40px;
+  }
+  .section-title{
+    display:flex; align-items:baseline; gap:14px;
+    margin-bottom: 22px;
+  }
+  .section-title .num{
+    font-family:'Instrument Serif', serif; font-style:italic;
+    color: var(--accent); font-size: 20px;
+  }
+  .section-title h3{
+    font-family:'Gowun Batang', serif; font-weight:700;
+    font-size: 24px;
+  }
+  .section-title .line{
+    flex:1; height:1px; background: var(--line);
+  }
+  .dim-list{ display:flex; flex-direction:column; gap:22px; }
+  .dim{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 20px 22px;
+  }
+  .dim-head{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-bottom: 14px;
+  }
+  .dim-name{
+    font-family:'Gowun Batang', serif; font-weight:700;
+    font-size: 17px;
+  }
+  .dim-result{
+    font-family:'Black Han Sans', sans-serif;
+    color: var(--accent); font-size: 22px;
+    letter-spacing:.02em;
+  }
+  .dim-bar{
+    position:relative; height: 8px;
+    background: var(--ivory-2); border-radius:999px;
+    margin: 12px 0 10px;
+  }
+  .dim-bar .marker{
+    position:absolute; top:50%; transform:translate(-50%, -50%);
+    width: 18px; height:18px; border-radius:50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--paper), 0 0 0 5px var(--accent);
+    transition: left 1.2s cubic-bezier(.2,.7,.2,1);
+    left: 50%;
+  }
+  .dim-bar .center{
+    position:absolute; top:-6px; left:50%; width:1px; height:20px;
+    background: var(--line-2);
+  }
+  .dim-labels{
+    display:flex; justify-content:space-between;
+    font-size: 12px; color: var(--muted);
+    letter-spacing:.06em;
+  }
+  .dim-labels b{ color: var(--ink-2); font-weight:600; }
+
+  /* description */
+  .desc-box{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 28px 30px;
+    margin-bottom: 30px;
+  }
+  .desc-box p{
+    font-size: 16px; line-height:1.8; color: var(--ink-2);
+    margin-bottom: 14px;
+  }
+  .desc-box p:last-child{ margin-bottom:0; }
+  .desc-box .quote{
+    font-family:'Instrument Serif', serif; font-style:italic;
+    color: var(--accent); font-size: 22px;
+    margin-bottom: 18px; line-height:1.4;
+  }
+
+  .tips{
+    display:grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+    margin-bottom: 30px;
+  }
+  .tip{
+    background: var(--ivory-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+  }
+  .tip .ic{
+    font-family:'Instrument Serif', serif; font-style:italic;
+    color: var(--accent); font-size: 18px; margin-bottom: 6px;
+  }
+  .tip h4{
+    font-family:'Gowun Batang', serif; font-weight:700;
+    font-size: 15.5px; margin-bottom:6px;
+  }
+  .tip p{ font-size: 13.5px; line-height:1.55; color: var(--ink-2); }
+
+  .actions{
+    display:flex; gap: 12px; flex-wrap:wrap;
+    justify-content:center;
+    margin-top: 28px;
+    border-top: 1px solid var(--line);
+    padding-top: 28px;
+  }
+  .actions button{
+    font-family:'Pretendard Variable', sans-serif;
+    font-size: 14px; font-weight:600;
+    padding: 14px 24px; border-radius:999px;
+    cursor:pointer; transition: all .2s ease;
+  }
+  .btn-primary{
+    background: var(--ink); color: var(--paper); border:none;
+  }
+  .btn-primary:hover{ background: var(--accent); transform: translateY(-2px); }
+  .btn-ghost{
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--ink);
+  }
+  .btn-ghost:hover{ background: var(--ink); color: var(--paper); }
+
+  .footer{
+    margin-top: 60px; padding-top: 22px;
+    border-top: 1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center;
+    font-size: 11.5px; letter-spacing:.14em; text-transform:uppercase;
+    color: var(--muted);
+  }
+
+  /* ====== AUTH (학생 인증) ====== */
+  .auth{ display:none; padding-top: 10px; }
+  .auth.active{ display:block; }
+  .auth .eyebrow{
+    font-family:'Instrument Serif', serif; font-style:italic;
+    font-size:18px; color:var(--accent); margin-bottom: 14px;
+  }
+  .auth h2.auth-title{
+    font-family:'Gowun Batang', serif; font-weight:700;
+    font-size: clamp(28px, 5vw, 44px);
+    line-height: 1.18; letter-spacing:-0.01em;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .auth h2.auth-title .accent-en{
+    display:block;
+    font-family:'Instrument Serif', serif; font-style:italic;
+    color: var(--accent); font-size: .45em; font-weight: 400;
+    margin-top: 6px; letter-spacing: 0;
+  }
+  .auth .auth-lede{
+    font-size: 15.5px; line-height:1.7;
+    color: var(--ink-2); max-width: 560px;
+    margin-bottom: 30px;
+  }
+  /* 인증 카드: 기존 .qcard 톤을 그대로 계승 */
+  .auth-card{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 40px 36px 32px;
+    box-shadow: var(--shadow);
+    max-width: 600px;
+    position:relative;
+  }
+  .auth-card .form-tag{
+    display:inline-flex; align-items:center; gap:8px;
+    background: var(--ivory-2); border:1px solid var(--line);
+    padding: 6px 12px; border-radius:999px;
+    font-size: 11px; letter-spacing:.14em; text-transform:uppercase;
+    color: var(--ink-2);
+    margin-bottom: 24px;
+  }
+  .auth-card .form-tag .pill{
+    width:8px; height:8px; border-radius:50%; background: var(--accent);
+  }
+  .auth-card .field{
+    margin-bottom: 22px;
+  }
+  .auth-card .field label{
+    display:block;
+    font-size: 11px; letter-spacing:.18em; text-transform:uppercase;
+    color: var(--muted); margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .auth-card .field label .req{
+    color: var(--accent); margin-left: 4px;
+  }
+  .auth-card .field input{
+    width: 100%;
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 20px;
+    font-family:'Pretendard Variable', Pretendard, sans-serif;
+    font-size: 16px;
+    color: var(--ink);
+    transition: all .2s ease;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .auth-card .field input::placeholder{
+    color: var(--muted); opacity: .6;
+  }
+  .auth-card .field input:focus{
+    outline: none;
+    border-color: var(--ink);
+    background: var(--paper);
+    box-shadow: 0 0 0 4px rgba(26,23,20,.06);
+  }
+  .auth-card .field .hint{
+    font-size: 12.5px; color: var(--muted);
+    margin-top: 8px;
+    font-family:'Instrument Serif', serif; font-style:italic;
+  }
+  .auth-card .actions-row{
+    display:flex; gap: 12px; align-items:center;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  .auth-card .btn-back-auth{
+    background: none; border: 1px solid var(--line);
+    padding: 14px 22px; border-radius: 999px;
+    cursor:pointer; font-family:'Pretendard Variable', sans-serif;
+    font-size: 14px; color: var(--ink-2);
+    transition: all .2s ease;
+  }
+  .auth-card .btn-back-auth:hover{
+    background: var(--ink); color: var(--paper); border-color: var(--ink);
+  }
+  .auth-card .cta:disabled{
+    opacity: .55; cursor: not-allowed; transform: none;
+  }
+  .auth-card .cta:disabled:hover{
+    background: var(--ink); transform: none;
+  }
+  .auth-card .privacy-note{
+    margin-top: 18px;
+    font-size: 12px; color: var(--muted); line-height:1.6;
+    border-top: 1px dashed var(--line);
+    padding-top: 16px;
+  }
+
+  /* ====== 퀴즈 Topbar 학생 정보 chip ====== */
+  .topbar .brand-wrap{
+    display:flex; align-items:center; gap: 14px;
+    flex-wrap: wrap;
+    text-transform: none; letter-spacing: 0;
+  }
+  .student-chip{
+    display:none;
+    align-items:center; gap:8px;
+    background: var(--ink); color: var(--paper);
+    padding: 5px 14px 5px 5px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-family:'Pretendard Variable', sans-serif;
+    letter-spacing: .02em;
+    text-transform: none;
+    font-weight: 500;
+  }
+  .student-chip.show{ display:inline-flex; }
+  .student-chip .sid{
+    background: var(--accent); color: var(--paper);
+    padding: 3px 10px; border-radius: 999px;
+    font-family:'Instrument Serif', serif; font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0;
+  }
+  .student-chip .live-dot{
+    width:6px; height:6px; border-radius:50%;
+    background: #7ED957;
+    animation: pulse 1.6s infinite ease-in-out;
+    margin-right: 2px;
+  }
+
+  /* animations */
+  .fade-up{
+    opacity:0; transform: translateY(14px);
+    animation: fadeUp .55s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  @keyframes fadeUp{
+    to{ opacity:1; transform: translateY(0); }
+  }
+  .d-1{ animation-delay:.08s; }
+  .d-2{ animation-delay:.16s; }
+  .d-3{ animation-delay:.24s; }
+  .d-4{ animation-delay:.32s; }
+  .d-5{ animation-delay:.40s; }
+  .d-6{ animation-delay:.48s; }
+
+  /* === MOBILE === */
+  @media (max-width: 720px){
+    .stage{ padding: 24px 18px 60px; }
+    .topbar .meta{ display:none; }
+    .meta-grid{ grid-template-columns: repeat(2, 1fr); }
+    .meta-grid .cell{ border-bottom:1px dashed var(--line); }
+    .meta-grid .cell:nth-child(2){ border-right:none; }
+    .meta-grid .cell:nth-child(3),
+    .meta-grid .cell:nth-child(4){ border-bottom:none; }
+    .feature-strip{ grid-template-columns: 1fr; }
+    .types-row{ grid-template-columns: repeat(2, 1fr); }
+    .qcard{ padding: 28px 22px; min-height: 0; }
+    .qcard .qnum{ top: 18px; right: 22px; font-size: 14px;}
+    .choice{ padding: 14px 16px; font-size: 14.5px; gap: 12px; }
+    .choice .num{ width:28px; height:28px; font-size:13px; }
+    .result-head{ grid-template-columns: 1fr; gap: 28px; padding-bottom: 32px; }
+    .ring{ width: 180px; height: 180px; }
+    .score-num .n{ font-size: 60px; }
+    .tips{ grid-template-columns: 1fr; }
+    .desc-box{ padding: 22px 20px; }
+    .footer{ flex-direction:column; gap:10px; }
+    .auth-card{ padding: 28px 22px; }
+    .auth-card .field input{ padding: 14px 16px; font-size: 15px; }
+    .auth-card .actions-row{ flex-direction: column-reverse; align-items: stretch; gap: 10px; }
+    .auth-card .actions-row .cta,
+    .auth-card .actions-row .btn-back-auth{ width: 100%; justify-content: center; text-align:center; }
+    .student-chip{ font-size: 11px; padding: 4px 12px 4px 4px; }
+    .student-chip .sid{ font-size: 12px; padding: 2px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- ============ INTRO ============ -->
+  <section id="introScreen">
+    <div class="topbar fade-up">
+      <span class="brand">Impulse Type</span>
+      <span class="meta">
+        <span><span class="dot"></span>SNS · 충동구매 연구</span>
+        <span>EST. 2026</span>
+      </span>
+    </div>
+
+    <div class="intro">
+      <div class="eyebrow fade-up d-1">A research-based shopping personality test</div>
+      <h1 class="fade-up d-2">
+        <span class="ko">당신의 충동은</span>
+        <span class="ko">어떤 모양인가요?</span>
+        <span class="en">— what does your impulse look like</span>
+      </h1>
+      <p class="lede fade-up d-3">
+        스크롤 한 번에 새 광고가 뜨고, 한정 수량이 시간을 재촉합니다.
+        SNS는 우리의 지갑을 어떻게 움직일까요? 30개의 질문으로
+        당신이 어떤 <b>충동구매 유형</b>인지 진단하고, 0–100점의
+        위험도 점수를 알려드립니다.
+      </p>
+
+      <div class="meta-grid fade-up d-4">
+        <div class="cell"><div class="k">질문</div><div class="v">30<small>문항</small></div></div>
+        <div class="cell"><div class="k">소요</div><div class="v">7<small>분</small></div></div>
+        <div class="cell"><div class="k">유형</div><div class="v">8<small>가지</small></div></div>
+        <div class="cell"><div class="k">점수</div><div class="v">0–100<small>점</small></div></div>
+      </div>
+
+      <button class="cta fade-up d-5" onclick="startQuiz()">
+        진단 시작하기
+        <span class="arrow">→</span>
+      </button>
+
+      <div class="feature-strip fade-up d-6">
+        <div class="feature">
+          <div class="num">01</div>
+          <h3>3가지 축으로 분석</h3>
+          <p>즉흥성 · 감정성 · 유행 추종도, 각 10문항씩 총 30문항으로 다각도 분석합니다.</p>
+        </div>
+        <div class="feature">
+          <div class="num">02</div>
+          <h3>충동 위험도 점수</h3>
+          <p>응답 패턴을 정규화하여 0점부터 100점까지 객관적인 위험도 지표로 제공합니다.</p>
+        </div>
+        <div class="feature">
+          <div class="num">03</div>
+          <h3>맞춤형 인사이트</h3>
+          <p>유형별 특징과 SNS 광고 노출 시의 행동 패턴, 실천 가능한 소비 팁까지.</p>
+        </div>
+      </div>
+
+      <div class="types-preview">
+        <h4>— 8가지 충동구매 유형</h4>
+        <div class="types-row" id="typesRow"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AUTH (학생 인증) ============ -->
+  <section class="auth" id="authScreen">
+    <div class="topbar fade-up">
+      <span class="brand">Impulse Type</span>
+      <span class="meta">
+        <span><span class="dot"></span>학생 정보 입력</span>
+        <span>STEP 1 / 2</span>
+      </span>
+    </div>
+
+    <div class="eyebrow fade-up d-1">Student Verification</div>
+    <h2 class="auth-title fade-up d-2">
+      학생 정보를 입력해 주세요.
+      <span class="accent-en">— please enter your student info</span>
+    </h2>
+    <p class="auth-lede fade-up d-3">
+      본 설문은 <b>고등학교 프로젝트 봉사활동</b>의 일환으로 진행됩니다.
+      학번과 이름을 입력하신 학생만 진단에 참여할 수 있으며,
+      <b>한 학생당 1회만 참여 가능</b>합니다.
+    </p>
+
+    <div class="auth-card fade-up d-4">
+      <div class="form-tag"><span class="pill"></span>STUDENT INFORMATION</div>
+
+      <div class="field">
+        <label for="inputStudentId">학번 STUDENT ID<span class="req">*</span></label>
+        <input
+          type="text"
+          id="inputStudentId"
+          inputmode="numeric"
+          autocomplete="off"
+          maxlength="5"
+          placeholder="예: 30101"
+          oninput="onStudentIdInput(event)"
+          onkeydown="onAuthKey(event)"
+        />
+        <div class="hint">학년 1자리 · 반 2자리 · 번호 2자리 (총 5자리 숫자)</div>
+      </div>
+
+      <div class="field">
+        <label for="inputStudentName">이름 NAME<span class="req">*</span></label>
+        <input
+          type="text"
+          id="inputStudentName"
+          autocomplete="off"
+          maxlength="20"
+          placeholder="예: 홍길동"
+          onkeydown="onAuthKey(event)"
+        />
+        <div class="hint">실명을 입력해주세요 — 중복 참여 확인에 사용됩니다.</div>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn-back-auth" onclick="backToIntro()">← 이전</button>
+        <button class="cta" id="confirmAuthBtn" onclick="confirmStudentAndStart()">
+          <span id="confirmAuthBtnText">확인 및 질문 시작</span>
+          <span class="arrow">→</span>
+        </button>
+      </div>
+
+      <div class="privacy-note">
+        ※ 입력하신 학번·이름·응답 데이터는 본 프로젝트 결과 분석 목적으로만 사용되며,
+        외부에 공개되지 않습니다.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="quiz" id="quizScreen">
+    <div class="topbar">
+      <div class="brand-wrap">
+        <span class="brand">Impulse Type</span>
+        <span class="student-chip" id="studentInfoTopbar">
+          <span class="live-dot"></span>
+          <span class="sid" id="studentChipSid">--</span>
+          <span><b id="studentChipName">--</b> 학생 진행 중</span>
+        </span>
+      </div>
+      <span class="meta">
+        <span><span class="dot"></span>진단 진행 중</span>
+        <span id="dimTagTop">DIMENSION 1</span>
+      </span>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-label"><b id="qCurrent">1</b><span>/ 30</span></div>
+    </div>
+
+    <div class="qcard" id="qcard">
+      <span class="qnum" id="qNumberLabel">Q.01</span>
+      <div class="tag"><span class="pill"></span><span id="dimTag">즉흥성 IMPULSIVENESS</span></div>
+      <h2 id="qText">질문 로딩 중…</h2>
+      <div class="choices" id="choices"></div>
+    </div>
+
+    <div class="qnav">
+      <button class="btn-back" id="backBtn" onclick="prevQuestion()">← 이전 질문</button>
+      <div class="timer"><span class="pulse"></span><span id="timerText">예상 잔여 7:00</span></div>
+    </div>
+  </section>
+
+  <!-- ============ RESULT ============ -->
+  <section class="result" id="resultScreen">
+    <div class="topbar">
+      <span class="brand">Impulse Type</span>
+      <span class="meta">
+        <span><span class="dot"></span>진단 결과</span>
+        <span id="dateLabel"></span>
+      </span>
+    </div>
+
+    <div class="result-head">
+      <div>
+        <span class="badge fade-up">YOUR IMPULSE TYPE</span>
+        <span class="type-emoji fade-up d-1" id="typeEmoji">🛍️</span>
+        <div class="type-code fade-up d-1" id="typeCode">IET</div>
+        <div class="type-name fade-up d-2" id="typeName">충동의 아이콘</div>
+        <span class="type-tag fade-up d-3" id="typeTagline">감성과 트렌드에 즉답하는 사람</span>
+      </div>
+
+      <div class="score-block fade-up d-2">
+        <span class="score-label">충동구매 위험도</span>
+        <div class="ring-wrap">
+          <svg class="ring" viewBox="0 0 220 220">
+            <circle class="bg" cx="110" cy="110" r="90"/>
+            <circle class="fg" id="ringFg" cx="110" cy="110" r="90"/>
+          </svg>
+          <div class="score-num">
+            <div class="n" id="scoreN">0</div>
+            <div class="of">/ 100</div>
+          </div>
+        </div>
+        <div class="score-level">
+          <span id="scoreLevelText">분석 중</span>
+          <span class="badge-lv" id="scoreLevelBadge">LV.0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dim-section">
+      <div class="section-title">
+        <span class="num">01</span>
+        <h3>3가지 축 분석</h3>
+        <span class="line"></span>
+      </div>
+      <div class="dim-list" id="dimList"></div>
+    </div>
+
+    <div class="dim-section">
+      <div class="section-title">
+        <span class="num">02</span>
+        <h3>당신의 유형, 더 자세히</h3>
+        <span class="line"></span>
+      </div>
+      <div class="desc-box">
+        <div class="quote" id="quoteText">"한 줄 요약"</div>
+        <p id="descPara1"></p>
+        <p id="descPara2"></p>
+      </div>
+    </div>
+
+    <div class="dim-section">
+      <div class="section-title">
+        <span class="num">03</span>
+        <h3>SNS 시대를 살아가는 팁</h3>
+        <span class="line"></span>
+      </div>
+      <div class="tips" id="tipsBox"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-primary" onclick="restart()">처음부터 다시</button>
+      <button class="btn-ghost" onclick="shareResult()">결과 복사하기</button>
+    </div>
+
+    <div class="footer">
+      <span>SNS 광고 · 충동구매 연구 프로젝트</span>
+      <span id="footerSig">IMPULSE TYPE © 2026</span>
+    </div>
+  </section>
+</div>
+
+<script>
+/* ============== 데이터: 질문 30개 ============== */
+/* 차원: 1=즉흥성(I/P), 2=감정성(E/L), 3=유행(T/N) */
+/* 응답 1~5, 점수가 높을수록 I/E/T 쪽으로 기울어짐 */
+const QUESTIONS = [
+  // ===== 즉흥성 (I=충동, P=계획) =====
+  { d:1, t:"SNS에서 광고를 보고 그날 안에 구매한 적이 있다." },
+  { d:1, t:"계획에 없던 물건을 충동적으로 산 경험이 많다." },
+  { d:1, t:"'한정 수량' 또는 '마감 임박' 문구를 보면 마음이 급해진다." },
+  { d:1, t:"결제 직전에 다시 한 번 생각하는 시간이 짧은 편이다." },
+  { d:1, t:"필요한지 따져보기보다 일단 장바구니에 담아두는 편이다." },
+  { d:1, t:"구매하고 나서 '이걸 왜 샀지'라며 후회한 적이 종종 있다." },
+  { d:1, t:"'오늘만 특가' 같은 알림을 보면 일단 들어가서 확인한다." },
+  { d:1, t:"가격 비교 사이트를 잘 이용하지 않는 편이다." },
+  { d:1, t:"새로 출시된 제품을 빨리 가져야 한다는 생각이 든다." },
+  { d:1, t:"카트에 담은 물건을 며칠씩 고민하지 않고 결제한다." },
+
+  // ===== 감정성 (E=감정, L=이성) =====
+  { d:2, t:"기분이 안 좋을 때 쇼핑으로 스트레스를 푸는 편이다." },
+  { d:2, t:"광고의 분위기·BGM·스토리에 마음이 움직인 적이 있다." },
+  { d:2, t:"제품의 디자인이 기능·스펙보다 더 중요하다고 느낀다." },
+  { d:2, t:"후기를 읽다가 감정 이입해서 구매한 적이 있다." },
+  { d:2, t:"쇼핑하는 행위 자체가 나에게 큰 즐거움이다." },
+  { d:2, t:"'나에게 주는 선물'이라며 합리화하고 구매한 적이 있다." },
+  { d:2, t:"제품의 포장·언박싱 경험을 중요하게 생각한다." },
+  { d:2, t:"스펙보다는 그 제품이 주는 느낌과 분위기로 결정한다." },
+  { d:2, t:"인플루언서의 행복한 일상을 보면 따라하고 싶어진다." },
+  { d:2, t:"갖고 싶은 마음이 들면 이성적인 판단이 잘 안 된다." },
+
+  // ===== 유행 추종 (T=유행, N=소신) =====
+  { d:3, t:"친구가 가진 물건이 좋아 보이면 나도 사고 싶어진다." },
+  { d:3, t:"SNS에서 화제가 된 제품에 관심이 많은 편이다." },
+  { d:3, t:"인플루언서·유튜버가 추천한 제품을 산 적이 있다." },
+  { d:3, t:"유행하는 스타일을 빠르게 따라가는 편이다." },
+  { d:3, t:"추천 알고리즘이 보여주는 광고에 자주 끌린다." },
+  { d:3, t:"'#광고' 표시가 있어도 콘텐츠가 좋으면 신경 쓰지 않는다." },
+  { d:3, t:"후기 수가 많거나 별점이 높은 제품을 선호한다." },
+  { d:3, t:"트렌드를 놓치면 뒤처지는 기분이 든다." },
+  { d:3, t:"구매 전 다른 사람들의 리뷰를 꼭 확인한다." },
+  { d:3, t:"SNS에서 본 제품을 따로 검색해본 적이 많다." },
+];
+
+/* ============== 8가지 유형 ============== */
+/* 코드: 1축(I/P), 2축(E/L), 3축(T/N) */
+const TYPES = {
+  IET: { emoji:"🛍️",  name:"충동의 아이콘",       tag:"감성과 트렌드에 즉답하는 사람" },
+  IEN: { emoji:"💘",  name:"감성 직진러",         tag:"내 감정에 솔직한 충동러" },
+  ILT: { emoji:"🎯",  name:"트렌드 사냥꾼",       tag:"새로운 유행을 가장 빨리 잡는 사람" },
+  ILN: { emoji:"⚡",  name:"즉흥 큐레이터",       tag:"내 기준으로 빠르게 결정하는 사람" },
+  PET: { emoji:"🌸",  name:"감성 플래너",         tag:"기다렸다가 감성에 결제하는 사람" },
+  PEN: { emoji:"💭",  name:"신중한 로맨티스트",   tag:"마음에 들어도 천천히 결정하는 사람" },
+  PLT: { emoji:"📊",  name:"전략적 얼리어답터",   tag:"트렌드를 데이터로 사는 사람" },
+  PLN: { emoji:"🛡️",  name:"이성의 수호자",       tag:"광고 영향이 가장 적은 합리적 소비자" },
+};
+
+const TYPE_DESC = {
+  IET: {
+    q:"\"광고를 본 순간, 이미 카트에 들어가 있다.\"",
+    p1:"감정이 움직이고, 유행이 부르고, 결정을 미루지 않는 — 충동구매에 가장 취약한 유형입니다. SNS의 짧은 광고 한 편에도 '내 이야기다' 싶으면 곧장 결제로 이어집니다.",
+    p2:"감각적이고 트렌드에 민감해서 늘 새로운 경험을 만들지만, 한 달 뒤 후회하는 물건도 가장 많은 편. 결제 전 '24시간 룰'을 적용해보는 것만으로도 소비 습관이 크게 달라집니다."
+  },
+  IEN: {
+    q:"\"남이 뭐라든 내 마음이 끌리면 산다.\"",
+    p1:"유행보다 내 감정이 우선입니다. SNS 광고보다는 본인의 기분·취향에 따라 즉흥적으로 결제하는 타입이에요. 유행을 좇지 않는 점은 강점이지만, 감정 기복이 곧 소비 기복이 되기 쉽습니다.",
+    p2:"내 감정과 돈을 분리하는 연습이 핵심. 기분이 안 좋을 때 카트에 담는 물건은 일주일 뒤에 다시 봐도 사고 싶은지 검토하는 습관을 들여보세요."
+  },
+  ILT: {
+    q:"\"이성적으로 따져보고 — 사야겠다.\"",
+    p1:"머리로는 계산하면서도 트렌드는 놓치지 않는 유형. 새로운 제품·유행에 빠르게 반응하지만, 즉흥적 결정 속도 때문에 결국 비슷한 소비를 자주 합니다.",
+    p2:"가성비·스펙은 챙기지만 'FOMO(놓칠까봐 두려움)'에 약합니다. '지금 사지 않아도 한 달 뒤 같은 가격에 살 수 있을까?'를 자문해보는 게 좋습니다."
+  },
+  ILN: {
+    q:"\"고민은 짧게, 결정은 내 기준대로.\"",
+    p1:"트렌드도 감정도 크게 신경 안 쓰고, 자신만의 기준으로 빠르게 사고파는 유형. 충동적이지만 자기 확신이 강해 후회는 적은 편입니다.",
+    p2:"위험요소는 '내가 잘 안다'는 자신감 자체. 가끔은 결정을 미루고 다른 옵션을 검토하는 시간을 가져보세요. 의외의 발견이 있을 수 있습니다."
+  },
+  PET: {
+    q:"\"좋아하는 건 충분히 기다린 뒤에 산다.\"",
+    p1:"감성적이고 유행도 잘 따라가지만, 즉흥적으로 사지는 않는 균형형. SNS에서 본 제품을 위시리스트에 담아두었다가 적절한 시점에 결제하는 타입입니다.",
+    p2:"소비 만족도는 높지만, 위시리스트가 길어질수록 결국 '몰아 사기'가 될 수 있어요. 정기적으로 위시리스트를 비워내는 습관을 추천합니다."
+  },
+  PEN: {
+    q:"\"마음에 들어도 — 한 달은 본다.\"",
+    p1:"감성형이지만 결정에 시간을 들이고, 트렌드도 자기 호흡에 맞게 따라가는 신중한 로맨티스트. 후회 없는 소비를 추구합니다.",
+    p2:"가장 큰 강점은 '내 마음'을 안다는 것. 다만 너무 신중해서 좋은 기회를 놓치기도 합니다. 정말 갖고 싶은 건 가끔 빠르게 결정하는 용기도 필요해요."
+  },
+  PLT: {
+    q:"\"트렌드도 데이터로 검증한 뒤에 산다.\"",
+    p1:"유행에는 민감하지만 충동은 적은 전략가형. SNS에서 화제인 제품을 일단 리서치하고, 가격·후기·대안을 모두 검토한 뒤에 결정합니다.",
+    p2:"합리적이지만 정보 수집에 시간을 너무 많이 쏟는 함정이 있어요. 5천 원짜리 물건에 30분 리서치하는 자신을 발견한다면, 의사결정 기준을 단순화해보세요."
+  },
+  PLN: {
+    q:"\"광고는 광고일 뿐, 필요한 것만 산다.\"",
+    p1:"SNS 광고의 영향력이 가장 적은 유형. 트렌드·감정에 흔들리지 않고 자기 필요와 예산에 따라 소비합니다. 충동구매 위험도가 매우 낮은 합리적 소비자입니다.",
+    p2:"강점은 분명한 자기 기준. 다만 너무 절제하다 보면 새로운 경험에서 멀어질 수 있어요. 가끔은 '필요'가 아닌 '즐거움'을 위한 소비도 인생을 풍성하게 만듭니다."
+  }
+};
+
+const TYPE_TIPS = {
+  IET: [
+    {h:"24시간 룰 적용",      b:"카트에 담은 직후 결제하지 않고, 최소 하루 뒤에 다시 검토해보세요."},
+    {h:"광고 알림 OFF",       b:"인스타·틱톡의 푸시·맞춤광고 빈도를 줄이는 것만으로 큰 효과가 있습니다."},
+    {h:"월간 예산 설정",      b:"이 유형은 한도가 없으면 무한 소비로 갑니다. 카테고리별 상한선을 정해두세요."},
+    {h:"언팔로우 다이어트",   b:"3개월간 1번도 안 본 쇼핑 인플루언서는 과감하게 정리합니다."},
+  ],
+  IEN: [
+    {h:"감정 일기",           b:"쇼핑 전 '지금 내 기분은?'을 한 줄 적어보세요. 패턴이 보입니다."},
+    {h:"결제 30분 룰",        b:"감정적 결제 전 30분 산책·휴식 후 다시 돌아오기."},
+    {h:"대체 활동 리스트",     b:"쇼핑 대신 할 수 있는 즐거운 활동 5가지를 미리 정해두세요."},
+    {h:"필수 vs 욕망",         b:"카트의 아이템을 둘로 분류하는 습관을 들이세요."},
+  ],
+  ILT: [
+    {h:"FOMO 점검",            b:"'지금 안 사면 손해'라는 느낌이 들 때마다 의심해보세요."},
+    {h:"한 박자 늦게",          b:"신제품은 출시 2주 뒤 리뷰가 모인 시점에 결정하세요."},
+    {h:"이미 가진 것 점검",     b:"비슷한 기능의 물건이 집에 없는지 먼저 확인."},
+    {h:"리뷰 표본 키우기",      b:"별점 외에 '낮은 별점' 리뷰도 반드시 읽어보세요."},
+  ],
+  ILN: [
+    {h:"가끔은 느리게",         b:"빠른 결정이 강점이지만, 큰 금액은 일부러 미뤄보세요."},
+    {h:"외부 의견 듣기",        b:"믿는 사람에게 'A vs B' 의견을 물어보는 습관."},
+    {h:"중고가 점검",           b:"같은 제품의 중고 시세를 확인하면 새 제품 가치가 보입니다."},
+    {h:"기록 남기기",           b:"즉흥 구매 후 만족도를 1주일 뒤 점검해보세요."},
+  ],
+  PET: [
+    {h:"위시리스트 청소",       b:"한 달에 한 번 위시리스트를 비워내는 시간을 가지세요."},
+    {h:"몰아 사기 주의",        b:"세일 시즌에 한꺼번에 결제하지 말고 분산하세요."},
+    {h:"감성 vs 실용 균형",     b:"디자인뿐 아니라 사용 빈도도 함께 고려하세요."},
+    {h:"진짜 좋아하는 것 기록", b:"오래 좋아한 브랜드·스타일 리스트를 만들어두세요."},
+  ],
+  PEN: [
+    {h:"기회 손실도 비용",      b:"너무 신중하면 좋은 기회를 놓칠 수 있어요."},
+    {h:"한 달 기준",             b:"'한 달 뒤에도 사고 싶다면 산다'를 실천 중이라면 좋습니다."},
+    {h:"가끔은 빠르게",          b:"꼭 필요한 건 빠르게 결정하는 용기도 필요합니다."},
+    {h:"본인 기준 신뢰",         b:"트렌드를 신경 쓰지 않는 자신을 칭찬하세요."},
+  ],
+  PLT: [
+    {h:"리서치 시간 제한",       b:"가격대별 의사결정 시간 한도를 정해두세요."},
+    {h:"기준 단순화",            b:"3개 이상 비교하지 말고 핵심 2-3 기준으로 결정."},
+    {h:"의사결정 피로",          b:"너무 많은 옵션은 오히려 만족도를 떨어뜨립니다."},
+    {h:"트렌드 신뢰 검증",       b:"인기 ≠ 좋은 제품. 본질 가치를 따져보세요."},
+  ],
+  PLN: [
+    {h:"가끔의 사치",            b:"필요만 채우면 삶이 건조해질 수 있어요."},
+    {h:"새로운 경험",            b:"가끔은 모르는 카테고리에 도전해보세요."},
+    {h:"주변에 영감 주기",       b:"당신의 소비 습관을 친구들과 공유해보세요."},
+    {h:"좋은 자산 형성",         b:"절약한 금액을 저축·투자로 연결해 보세요."},
+  ],
+};
+
+/* ============== 상태 ============== */
+let answers = new Array(QUESTIONS.length).fill(null);
+let current = 0;
+let startTime = 0;
+
+/* ============== 학생 정보 / 서버 설정 ============== */
+/**
+ * ▼▼▼ 여기를 본인의 Google Apps Script 웹 앱 URL로 교체하세요 ▼▼▼
+ * 예) "https://script.google.com/macros/s/AKfycbz........./exec"
+ * 배포 방법은 SETUP_GUIDE.md 참고
+ */
+const API_BASE_URL = "https://script.google.com/macros/s/AKfycbyepf1ABDO0z_pn21tzgQsi02o5MeeN3LhdCXKEMiHHOezEMvNCC6Ogw-rBYxqKQHo5NQ/exec";
+
+// 개발 편의: URL 미설정 시 콘솔 경고
+if(API_BASE_URL.includes('YOUR_GOOGLE_APPS_SCRIPT')){
+  console.warn(
+    '⚠️ API_BASE_URL이 설정되지 않았습니다.\n' +
+    '   impulse_mbti.html 상단의 API_BASE_URL을 본인의 Google Apps Script 웹 앱 URL로 교체하세요.'
+  );
+}
+
+let studentId   = "";
+let studentName = "";
+
+/* ============== 인트로 8유형 카드 ============== */
+function renderTypesPreview(){
+  const row = document.getElementById('typesRow');
+  row.innerHTML = Object.entries(TYPES).map(([code,t]) => `
+    <div class="type-chip">
+      <div class="code">${code}</div>
+      <div class="name">${t.emoji} ${t.name}</div>
+    </div>
+  `).join('');
+}
+
+/* ============== 진단 시작 (1단계: 인증 화면 표시) ============== */
+/* 인트로 [진단 시작하기] 클릭 시 호출 — 바로 퀴즈로 가지 않고 학생 인증 화면을 보여준다. */
+function startQuiz(){
+  document.getElementById('introScreen').style.display = 'none';
+  document.getElementById('authScreen').classList.add('active');
+  // 입력값 초기화
+  const sidEl   = document.getElementById('inputStudentId');
+  const snameEl = document.getElementById('inputStudentName');
+  sidEl.value = "";
+  snameEl.value = "";
+  window.scrollTo({top:0, behavior:'instant'});
+  // 모바일에서 자동 포커스는 키보드를 띄울 수 있으므로 약간 지연
+  setTimeout(() => sidEl.focus(), 150);
+}
+
+/* 인증 화면 → 인트로 복귀 */
+function backToIntro(){
+  document.getElementById('authScreen').classList.remove('active');
+  document.getElementById('introScreen').style.display = 'block';
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+/* 학번 입력: 숫자만, 최대 5자리 */
+function onStudentIdInput(e){
+  e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 5);
+}
+
+/* 엔터 키 처리: 학번 → 이름, 이름 → 확인 */
+function onAuthKey(e){
+  if(e.key !== 'Enter') return;
+  e.preventDefault();
+  if(e.target.id === 'inputStudentId'){
+    document.getElementById('inputStudentName').focus();
+  } else if(e.target.id === 'inputStudentName'){
+    confirmStudentAndStart();
+  }
+}
+
+/* ============== 중복 참여 체크 (학번 기준) ============== */
+/* Apps Script: GET ?action=check&student_id=...  →  {ok, exists} */
+async function checkDuplicate(sid){
+  const url = `${API_BASE_URL}?action=check&student_id=${encodeURIComponent(sid)}`;
+  try{
+    // ※ Content-Type을 명시하지 않아 단순 요청(simple request)으로 만들어 CORS preflight 회피
+    const res = await fetch(url, { method: 'GET' });
+    if(!res.ok){
+      console.warn('[중복체크] 서버 응답 오류:', res.status);
+      return { ok:false, exists:false, error:`HTTP ${res.status}` };
+    }
+    const data = await res.json();
+    return { ok:true, exists: !!data.exists, raw: data };
+  } catch (err){
+    console.warn('[중복체크] 네트워크 오류:', err);
+    return { ok:false, exists:false, error: String(err) };
+  }
+}
+
+/* ============== 학생 정보 확인 + 중복 체크 → 퀴즈 진입 ============== */
+async function confirmStudentAndStart(){
+  const sidInput   = document.getElementById('inputStudentId');
+  const snameInput = document.getElementById('inputStudentName');
+  const sid   = sidInput.value.trim();
+  const sname = snameInput.value.trim();
+
+  /* --- 입력값 검증 --- */
+  if(!sid){
+    alert('학번을 입력해주세요.');
+    sidInput.focus();
+    return;
+  }
+  if(!/^\d{5}$/.test(sid)){
+    alert('학번은 5자리 숫자로 입력해주세요.\n(예: 3학년 1반 1번 → 30101)');
+    sidInput.focus();
+    return;
+  }
+  if(!sname){
+    alert('이름을 입력해주세요.');
+    snameInput.focus();
+    return;
+  }
+  if(sname.length < 2){
+    alert('이름을 정확히 입력해주세요.');
+    snameInput.focus();
+    return;
+  }
+
+  /* --- 버튼 잠금 (중복 클릭 방지) --- */
+  const btn     = document.getElementById('confirmAuthBtn');
+  const btnText = document.getElementById('confirmAuthBtnText');
+  const originalText = btnText.textContent;
+  btn.disabled = true;
+  btnText.textContent = '확인 중…';
+
+  /* --- 중복 체크 (학번 기준) --- */
+  const dup = await checkDuplicate(sid);
+
+  /* 버튼 복구 */
+  btn.disabled = false;
+  btnText.textContent = originalText;
+
+  if(dup.exists){
+    alert('이미 설문에 참여한 학번입니다.\n중복 참여는 불가능합니다.\n\n학번을 잘못 입력하신 경우 다시 확인해주세요.');
+    sidInput.focus();
+    sidInput.select();
+    return;
+  }
+
+  /* --- 통과 → 학생 정보 저장 + 실제 퀴즈 시작 --- */
+  studentId   = sid;
+  studentName = sname;
+  actualStartQuiz();
+}
+
+/* ============== 실제 퀴즈 시작 (2단계) ============== */
+function actualStartQuiz(){
+  document.getElementById('authScreen').classList.remove('active');
+  document.getElementById('quizScreen').classList.add('active');
+
+  /* 상단 바에 학생 정보 표시 */
+  const chip = document.getElementById('studentInfoTopbar');
+  document.getElementById('studentChipSid').textContent  = studentId;
+  document.getElementById('studentChipName').textContent = studentName;
+  chip.classList.add('show');
+
+  current = 0;
+  answers = new Array(QUESTIONS.length).fill(null);
+  startTime = Date.now();
+  renderQuestion();
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+/* ============== 질문 렌더 ============== */
+const DIM_LABELS = {
+  1: { code:"DIMENSION 1", tag:"즉흥성 IMPULSIVENESS" },
+  2: { code:"DIMENSION 2", tag:"감정성 EMOTIONALITY" },
+  3: { code:"DIMENSION 3", tag:"유행 추종 TREND-FOLLOWING" }
+};
+
+const CHOICE_LABELS = [
+  { v:1, t:"전혀 그렇지 않다", num:"1" },
+  { v:2, t:"그렇지 않다",     num:"2" },
+  { v:3, t:"보통이다",         num:"3" },
+  { v:4, t:"그렇다",           num:"4" },
+  { v:5, t:"매우 그렇다",     num:"5" },
+];
+
+function renderQuestion(){
+  const q = QUESTIONS[current];
+  const dimInfo = DIM_LABELS[q.d];
+
+  // progress
+  document.getElementById('progressFill').style.width = (((current) / QUESTIONS.length) * 100) + '%';
+  document.getElementById('qCurrent').textContent = current + 1;
+
+  // tags
+  document.getElementById('dimTagTop').textContent = dimInfo.code;
+  document.getElementById('dimTag').textContent = dimInfo.tag;
+  document.getElementById('qNumberLabel').textContent = "Q." + String(current+1).padStart(2,'0');
+
+  // text
+  const qcard = document.getElementById('qcard');
+  qcard.classList.remove('fade-up');
+  void qcard.offsetWidth;
+  qcard.classList.add('fade-up');
+  document.getElementById('qText').textContent = q.t;
+
+  // choices
+  const cBox = document.getElementById('choices');
+  cBox.innerHTML = CHOICE_LABELS.map(c => `
+    <button class="choice ${answers[current]===c.v?'selected':''}" data-v="${c.v}" onclick="selectChoice(${c.v})">
+      <span class="num">${c.num}</span>
+      <span>${c.t}</span>
+    </button>
+  `).join('');
+
+  // back btn
+  document.getElementById('backBtn').disabled = (current === 0);
+
+  // timer estimate (7분 = 420초 기준)
+  const remain = Math.max(0, 420 - Math.round((Date.now()-startTime)/1000));
+  const mm = String(Math.floor(remain/60)).padStart(1,'0');
+  const ss = String(remain%60).padStart(2,'0');
+  document.getElementById('timerText').textContent = `예상 잔여 ${mm}:${ss}`;
+}
+
+function selectChoice(v){
+  answers[current] = v;
+  // 시각적 피드백 즉시
+  document.querySelectorAll('.choice').forEach(b => {
+    b.classList.toggle('selected', Number(b.dataset.v) === v);
+  });
+  // 약간의 지연 후 다음 질문
+  setTimeout(() => {
+    if(current < QUESTIONS.length - 1){
+      current++;
+      renderQuestion();
+      window.scrollTo({top:0, behavior:'smooth'});
+    } else {
+      // 마지막 질문이면 결과 페이지로
+      showResult();
+    }
+  }, 280);
+}
+
+function prevQuestion(){
+  if(current > 0){
+    current--;
+    renderQuestion();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+}
+
+/* ============== 결과 계산 ============== */
+function calculateResult(){
+  let sumD1 = 0, sumD2 = 0, sumD3 = 0;
+  let cntD1 = 0, cntD2 = 0, cntD3 = 0;
+  QUESTIONS.forEach((q, i) => {
+    const v = answers[i] || 3;
+    if(q.d === 1){ sumD1 += v; cntD1++; }
+    else if(q.d === 2){ sumD2 += v; cntD2++; }
+    else { sumD3 += v; cntD3++; }
+  });
+  // 각 차원 평균 → 1~5 → 정규화 (0~100)
+  const avgD1 = sumD1 / cntD1;
+  const avgD2 = sumD2 / cntD2;
+  const avgD3 = sumD3 / cntD3;
+  // 0~100 변환
+  const pctD1 = ((avgD1 - 1) / 4) * 100;
+  const pctD2 = ((avgD2 - 1) / 4) * 100;
+  const pctD3 = ((avgD3 - 1) / 4) * 100;
+
+  // 유형 코드
+  const code =
+    (pctD1 >= 50 ? "I" : "P") +
+    (pctD2 >= 50 ? "E" : "L") +
+    (pctD3 >= 50 ? "T" : "N");
+
+  // 총 위험도 (3축 평균)
+  const risk = Math.round((pctD1 + pctD2 + pctD3) / 3);
+
+  return { code, risk, pctD1, pctD2, pctD3 };
+}
+
+function getScoreLevel(score){
+  if(score >= 80) return { text:"매우 높음 — 즉각 개입 권장", lv:"LV.5", color:"#B82A12" };
+  if(score >= 65) return { text:"높음 — 소비 패턴 점검 필요",  lv:"LV.4", color:"#E63B1F" };
+  if(score >= 50) return { text:"중간 — 일부 주의 필요",       lv:"LV.3", color:"#C97A1E" };
+  if(score >= 35) return { text:"낮음 — 비교적 안정적",         lv:"LV.2", color:"#5C6233" };
+  return                  { text:"매우 낮음 — 매우 안정적",    lv:"LV.1", color:"#3B5232" };
+}
+
+/* ============== 결과 렌더 ============== */
+function showResult(){
+  document.getElementById('quizScreen').classList.remove('active');
+  document.getElementById('resultScreen').classList.add('active');
+  window.scrollTo({top:0, behavior:'instant'});
+
+  const r = calculateResult();
+
+  /* ---- 서버(DB)로 결과 전송 (비동기, 실패해도 결과 화면 표시는 정상 진행) ---- */
+  submitResultToServer(r);
+
+  const type = TYPES[r.code];
+  const desc = TYPE_DESC[r.code];
+  const tips = TYPE_TIPS[r.code];
+  const level = getScoreLevel(r.risk);
+
+  // header
+  document.getElementById('typeEmoji').textContent = type.emoji;
+  document.getElementById('typeCode').innerHTML =
+    `<span>${r.code[0]}</span><span class="accent">${r.code[1]}</span><span>${r.code[2]}</span>`;
+  document.getElementById('typeName').textContent = type.name;
+  document.getElementById('typeTagline').textContent = type.tag;
+
+  // score ring + number
+  const C = 2 * Math.PI * 90; // 565.48
+  const offset = C - (r.risk/100) * C;
+  setTimeout(() => {
+    document.getElementById('ringFg').style.strokeDashoffset = offset;
+    document.getElementById('ringFg').style.stroke = level.color;
+  }, 200);
+  // counting up
+  animateNumber(document.getElementById('scoreN'), 0, r.risk, 1600);
+  document.getElementById('scoreLevelText').textContent = level.text;
+  document.getElementById('scoreLevelBadge').textContent = level.lv;
+  document.getElementById('scoreLevelBadge').style.background = level.color;
+
+  // date
+  const now = new Date();
+  const ds = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
+  document.getElementById('dateLabel').textContent = ds;
+
+  // dimensions
+  renderDimensions(r);
+
+  // description
+  document.getElementById('quoteText').textContent = desc.q;
+  document.getElementById('descPara1').textContent = desc.p1;
+  document.getElementById('descPara2').textContent = desc.p2;
+
+  // tips
+  document.getElementById('tipsBox').innerHTML = tips.map((t, i) => `
+    <div class="tip fade-up d-${(i%4)+1}">
+      <div class="ic">No. 0${i+1}</div>
+      <h4>${t.h}</h4>
+      <p>${t.b}</p>
+    </div>
+  `).join('');
+}
+
+function renderDimensions(r){
+  const dims = [
+    { name:"즉흥성 Impulsiveness", pct:r.pctD1, left:"계획형 (P)", right:"즉흥형 (I)", letter:r.code[0] },
+    { name:"감정성 Emotionality",  pct:r.pctD2, left:"이성형 (L)", right:"감정형 (E)", letter:r.code[1] },
+    { name:"유행 추종 Trend",      pct:r.pctD3, left:"소신형 (N)", right:"유행형 (T)", letter:r.code[2] },
+  ];
+  document.getElementById('dimList').innerHTML = dims.map((d,i) => `
+    <div class="dim fade-up d-${i+1}">
+      <div class="dim-head">
+        <div class="dim-name">${d.name}</div>
+        <div class="dim-result">${d.letter} · ${Math.round(d.pct)}%</div>
+      </div>
+      <div class="dim-bar">
+        <div class="center"></div>
+        <div class="marker" style="left:${Math.max(2, Math.min(98, d.pct))}%;"></div>
+      </div>
+      <div class="dim-labels">
+        <span><b>0</b> ${d.left}</span>
+        <span>${d.right} <b>100</b></span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function animateNumber(el, from, to, dur){
+  const t0 = performance.now();
+  function tick(t){
+    const k = Math.min(1, (t - t0)/dur);
+    const eased = 1 - Math.pow(1-k, 3);
+    const val = Math.round(from + (to-from)*eased);
+    el.textContent = val;
+    if(k < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ============== 서버(DB) 결과 전송 ============== */
+async function submitResultToServer(r){
+  const payload = {
+    student_id:   studentId,
+    student_name: studentName,
+    mbti_code:    r.code,                              // 예: "IET"
+    risk_score:   r.risk,                              // 0~100
+    raw_answers:  answers.map(v => (v === null ? 3 : v)) // 미응답은 3(보통) 처리
+  };
+
+  try{
+    const res = await fetch(API_BASE_URL, {
+      method: 'POST',
+      // ※ Google Apps Script는 application/json 본문에 CORS preflight를 차단함.
+      //   text/plain 으로 보내고 GAS 측에서 JSON.parse 하는 방식이 표준 우회법.
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload),
+      redirect: 'follow'
+    });
+    if(!res.ok){
+      console.warn('[결과전송] 서버 응답 오류:', res.status, res.statusText);
+      console.log('[결과전송] 전송 시도한 데이터:', payload);
+      return;
+    }
+    const data = await res.json().catch(() => ({}));
+    console.log('[결과전송] ✅ 성공', { payload, response: data });
+  } catch (err){
+    // 네트워크/CORS/기타 오류 — 결과 화면 표시는 영향받지 않음
+    console.warn('[결과전송] ❌ 네트워크 오류:', err);
+    console.log('[결과전송] 전송 시도한 데이터:', payload);
+  }
+}
+
+/* ============== 기타 ============== */
+function restart(){
+  document.getElementById('resultScreen').classList.remove('active');
+  document.getElementById('introScreen').style.display = 'block';
+
+  /* 학생 정보 초기화 + 상단 chip 숨김 (다음 사용자를 위해) */
+  studentId = "";
+  studentName = "";
+  const chip = document.getElementById('studentInfoTopbar');
+  if(chip) chip.classList.remove('show');
+
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+function shareResult(){
+  const r = calculateResult();
+  const type = TYPES[r.code];
+  const text = `[충동구매 MBTI 결과]\n유형: ${r.code} - ${type.emoji} ${type.name}\n위험도: ${r.risk}/100\n\n#충동구매MBTI #SNS광고연구`;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(text).then(()=>{
+      alert("결과가 복사되었습니다!\n\n" + text);
+    }).catch(()=>{
+      alert(text);
+    });
+  } else {
+    alert(text);
+  }
+}
+
+/* ============== 초기화 ============== */
+renderTypesPreview();
+</script>
+
+</body>
+</html>
